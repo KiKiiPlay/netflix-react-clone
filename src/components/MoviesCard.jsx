@@ -1,17 +1,18 @@
 import Card from "react-bootstrap/Card";
 import { Component } from "react";
-import Spinner from "react-bootstrap/Spinner";
+import { Spinner, Alert } from "react-bootstrap";
 
 class MoviesCard extends Component {
   state = {
     movieArr: [],
     isLoading: true,
+    ifError: false,
   };
 
   fetchMovies = async () => {
     try {
       let response = await fetch(
-        "http://www.omdbapi.com/?apikey=34d3d0dc&s=harry%20potter"
+        "http://www.omdbapi.com/?apikey=34d3d0dc&s=harry%20potterqqqq"
       );
       if (response.ok) {
         let data = await response.json();
@@ -19,23 +20,22 @@ class MoviesCard extends Component {
           movieArr: data.Search,
           isLoading: false,
         });
-        console.log(this.state.movieArr);
       } else {
-        console.log("error fetching Movies");
         this.setState({
           isLoading: false,
+          ifError: true,
         });
       }
     } catch (error) {
       console.log(error);
       this.setState({
         isLoading: false,
+        ifError: true,
       });
     }
   };
 
   componentDidMount() {
-    console.log("COMPONENTDIDMOUNT FIRED!");
     this.fetchMovies();
   }
 
@@ -57,6 +57,7 @@ class MoviesCard extends Component {
             <Card.Img variant="top" src={element.Poster} />
           </Card>
         ))}
+        {this.state.isError && <Alert variant="danger">ERROR</Alert>}
       </>
     );
   }
