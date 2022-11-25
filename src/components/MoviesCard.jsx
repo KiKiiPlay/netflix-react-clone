@@ -12,7 +12,7 @@ class MoviesCard extends Component {
   fetchMovies = async () => {
     try {
       let response = await fetch(
-        "http://www.omdbapi.com/?apikey=34d3d0dc&s=harry%20potterqqqq"
+        "http://www.omdbapi.com/?apikey=34d3d0dc&s=harry%20potter"
       );
       if (response.ok) {
         let data = await response.json();
@@ -57,7 +57,7 @@ class MoviesCard extends Component {
             <Card.Img variant="top" src={element.Poster} />
           </Card>
         ))}
-        {this.state.isError && <Alert variant="danger">ERROR</Alert>}
+        {this.state.ifError && <Alert variant="danger">ERROR</Alert>}
       </>
     );
   }
